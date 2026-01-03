@@ -1,0 +1,26 @@
+.academyInfo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 0.9rem;
+}
+
+.infoText {
+  color: var(--primary-color);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.phoneLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.phoneLink:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+

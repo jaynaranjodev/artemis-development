@@ -13,22 +13,6 @@ export async function GET(
 
     const academy = await prisma.academy.findUnique({
       where: { slug },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        email: true,
-        phone: true,
-        primaryColor: true,
-        secondaryColor: true,
-        textColor: true,
-        logoUrl: true,
-        bannerUrl: true,
-        address: true,
-        city: true,
-        state: true,
-        website: true,
-      }
     });
 
     if (!academy) {
@@ -60,16 +44,6 @@ export async function PUT(
     const academy = await prisma.academy.update({
       where: { slug },
       data: body,
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        primaryColor: true,
-        secondaryColor: true,
-        textColor: true,
-        logoUrl: true,
-        bannerUrl: true,
-      }
     });
 
     return NextResponse.json(academy);

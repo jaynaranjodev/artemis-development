@@ -6,7 +6,7 @@
 
 :root {
   --primary-color: #FF9000;
-  --secondary-color: #ff6b6b;
+  --secondary-color: #E66F00;
   --accent-color: #4ecdc4;
   --text-primary: #1a1a1a;
   --text-secondary: #666;
@@ -14,9 +14,9 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f8fafc;
   --bg-dark: #0f1419;
-  --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-1: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  --gradient-2: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  --gradient-3: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
 }
 
 html {
@@ -418,7 +418,7 @@ nav {
   left: 0;
   top: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark) 100%);
   color: white;
   padding: 1.5rem 1rem;
   overflow-y: auto;
@@ -426,7 +426,7 @@ nav {
   display: flex;
   flex-direction: column;
   width: 250px;
-  border-right: 4px solid #FF9000;
+  border-right: 4px solid var(--primary-color);
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -540,8 +540,8 @@ nav {
   left: 250px;
   right: 0;
   height: 60px;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  border-bottom: 2px solid #FF9000;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark) 100%);
+  border-bottom: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -579,7 +579,7 @@ nav {
 }
 
 .topbar-profile-btn {
-  background: #FF9000;
+  background: var(--primary-color);
   color: #1a1a2e;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -591,7 +591,7 @@ nav {
 }
 
 .topbar-profile-btn:hover {
-  background: #E66F00;
+  background: var(--secondary-color);
   transform: translateY(-2px);
 }
 
@@ -606,7 +606,7 @@ nav {
   text-align: center;
   overflow: hidden;
   margin-bottom: 1rem;
-  border-bottom: 4px solid #FF9000;
+  border-bottom: 4px solid var(--primary-color);
 }
 
 .dashboard-hero::before {
@@ -641,7 +641,7 @@ nav {
 }
 
 .hero-btn {
-  background: linear-gradient(135deg, #FF9000 0%, #E66F00 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: #fff;
   border: none;
   padding: 0.85rem 2rem;
@@ -709,8 +709,8 @@ nav {
 }
 
 .enroll-btn:hover {
-  background: #1a1a2e !important;
-  color: #FF9000 !important;
+  background: var(--bg-dark) !important;
+  color: var(--primary-color) !important;
   transform: translateY(-2px);
 }
 

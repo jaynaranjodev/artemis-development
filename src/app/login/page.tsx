@@ -3,11 +3,12 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function AdminPage() {
+export default function LoginPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Admin functionality has been moved to modals on the dashboard
+    // Redirect back to dashboard
+    // Login is accessed via the modal in the dashboard
     router.replace('/dashboard');
   }, [router]);
 
@@ -19,7 +20,7 @@ export default function AdminPage() {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
     }}>
-      <p style={{ color: 'white' }}>Redirecting to dashboard...</p>
+      <p style={{ color: 'white' }}>Redirecting...</p>
     </div>
   );
 }

@@ -76,8 +76,6 @@ export async function POST(request: NextRequest) {
         dayOfWeek,
         startTime,
         endTime,
-        maxCapacity,
-        beltLevel,
         instructorId,
         academyId,
       },

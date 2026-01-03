@@ -2,6 +2,14 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import AcademyHeader from '@/components/AcademyHeader';
+import AcademySidebarTitle from '@/components/AcademySidebarTitle';
+import LoginModal from '@/components/LoginModal';
+import PageEditPanel from '@/components/PageEditPanel';
+import ColorThemeModal from '@/components/ColorThemeModal';
+import EditPageDetailsModal from '@/components/EditPageDetailsModal';
+import { useAuth } from '@/context/AuthContext';
+import { useModals } from '@/context/ModalContext';
 
 export default function DashboardLayout({
   children,
@@ -9,7 +17,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const isAdmin = false;
+  const [isEditingPage, setIsEditingPage] = useState(false);
+  const [academyColors, setAcademyColors] = useState({
+    primary: '#FF9000',
+    secondary: '#E66F00',
+  });
+
+  const { isAdmin } = useAuth();
+  const modals = useModals();
 
   return (
     <div className="dashboard-container">
@@ -22,11 +37,7 @@ export default function DashboardLayout({
           ☰
         </button>
 
-        {sidebarOpen && (
-          <div className="sidebar-title">
-            🥋 JJ Grappling
-          </div>
-        )}
+        <AcademySidebarTitle academySlug={process.env.NEXT_PUBLIC_ACADEMY_SLUG || 'jj-grappling'} open={sidebarOpen} />
 
         <div className="sidebar-nav">
           <Link href="/dashboard" className="nav-link">
@@ -81,22 +92,63 @@ export default function DashboardLayout({
             <span className="nav-icon">🎉</span>
             {sidebarOpen && <span>Events</span>}
           </Link>
+
+          {/* Edit Page Button - Only for Admins */}
+          <PageEditPanel
+            isAdmin={isAdmin}
+            onEditColorTheme={() => modals.openColorThemeModal()}
+            onEditPageDetails={() => modals.openEditPageDetailsModal()}
+          />
         </div>
       </aside>
 
       {/* Top Bar */}
       <div className="dashboard-topbar">
+        <AcademyHeader academySlug={process.env.NEXT_PUBLIC_ACADEMY_SLUG || 'jj-grappling'} />
         <div className="topbar-spacer"></div>
         <div className="topbar-actions">
           <Link href="/dashboard/store" className="topbar-icon-btn" title="Shopping Cart">
             🛒
           </Link>
-          <button className="topbar-profile-btn">👤 Account</button>
+          <button 
+            className="topbar-profile-btn"
+            onClick={() => modals.openLoginModal()}
+          >
+            👤 Account
+          </button>
         </div>
       </div>
 
+      {/* Modals */}
+      <LoginModal isOpen={modals.loginModalOpen} onClose={() => modals.closeLoginModal()} />
+      <ColorThemeModal
+        isOpen={modals.colorThemeModalOpen}
+        onClose={() => modals.closeColorThemeModal()}
+        primaryColor={academyColors.primary}
+        secondaryColor={academyColors.secondary}
+        onSave={async (primary, secondary) => {
+          const slug = process.env.NEXT_PUBLIC_ACADEMY_SLUG || 'jj-grappling';
+          const response = await fetch(`/api/academy/${slug}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              primaryColor: primary,
+              secondaryColor: secondary,
+            }),
+          });
+          if (response.ok) {
+            setAcademyColors({ primary, secondary });
+          }
+        }}
+      />
+      <EditPageDetailsModal
+        isOpen={modals.editPageDetailsModalOpen}
+        onClose={() => modals.closeEditPageDetailsModal()}
+        onEditingChange={setIsEditingPage}
+      />
+
       {/* Main Content */}
-      <main className={`dashboard-main ${sidebarOpen ? '' : 'sidebar-closed'}`}>
+      <main className={`dashboard-main ${sidebarOpen ? '' : 'sidebar-closed'} ${isEditingPage ? 'edit-mode' : ''}`}>
         {children}
       </main>
     </div>

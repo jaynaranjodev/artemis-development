@@ -143,9 +143,10 @@ async function main() {
   });
 
   let instructorIndex = 0;
+  const instructorIdArray = Object.values(instructorIds) as string[];
 
   for (const classData of classesData) {
-    const instructorId = instructorIds[instructorIndex % instructorIds.length];
+    const instructorId = instructorIdArray[instructorIndex % instructorIdArray.length];
     instructorIndex++;
 
     await prisma.class.create({

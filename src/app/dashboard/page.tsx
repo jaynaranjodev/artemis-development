@@ -1,7 +1,74 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ClassCalendar from '@/components/ClassCalendar';
 
+interface AcademyCard {
+  title: string;
+  description: string;
+  image: string;
+}
+
+interface Academy {
+  name: string;
+  primaryColor: string;
+  secondaryColor: string;
+  card1Title?: string;
+  card1Description?: string;
+  card1Image?: string;
+  card2Title?: string;
+  card2Description?: string;
+  card2Image?: string;
+  card3Title?: string;
+  card3Description?: string;
+  card3Image?: string;
+}
+
 export default function DashboardHome() {
+  const [academy, setAcademy] = useState<Academy | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAcademy = async () => {
+      try {
+        const slug = process.env.NEXT_PUBLIC_ACADEMY_SLUG || 'jj-grappling';
+        const response = await fetch(`/api/academy/${slug}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAcademy(data);
+        }
+      } catch (error) {
+        console.error('Error fetching academy:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAcademy();
+  }, []);
+
+  const cards: AcademyCard[] = academy ? [
+    {
+      title: academy.card1Title || 'Head Coach',
+      description: academy.card1Description || 'Brazilian Jiu-Jitsu Expert with 15+ years experience',
+      image: academy.card1Image || '/images/academy/coach.avif'
+    },
+    {
+      title: academy.card2Title || 'Training',
+      description: academy.card2Description || 'Personalized instruction for all skill levels',
+      image: academy.card2Image || '/images/academy/coach-teaching.avif'
+    },
+    {
+      title: academy.card3Title || 'Competition',
+      description: academy.card3Description || 'Challenge yourself and compete in tournaments',
+      image: academy.card3Image || '/images/academy/student.avif'
+    }
+  ] : [];
+
+  const primaryColor = academy?.primaryColor || '#FF9000';
+  const heroTitle = academy?.name || 'Welcome';
+
   return (
     <>
       {/* Hero Section */}
@@ -18,11 +85,11 @@ export default function DashboardHome() {
       >
         <img 
           src="/images/academy/logo.png" 
-          alt="JJ Grappling Arts Logo"
+          alt={`${heroTitle} Logo`}
           style={{ width: '250px', height: 'auto', flexShrink: 0 }}
         />
         <div className="dashboard-hero-content" style={{ textAlign: 'left' }}>
-          <h1>Welcome to JJ Grappling Arts</h1>
+          <h1>Welcome to {heroTitle}</h1>
           <p>Master Brazilian Jiu-Jitsu and Wrestling. Build strength, discipline, and confidence.</p>
           <Link href="/dashboard/free-trial">
             <button className="hero-btn">
@@ -41,56 +108,24 @@ export default function DashboardHome() {
           gap: '2rem',
           marginTop: '2rem'
         }}>
-          <div style={{
-            borderRadius: '12px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-            border: '3px solid #FF9000',
-          }}>
-            <img 
-              src="/images/academy/coach.avif" 
-              alt="Coach"
-              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-            />
-            <div style={{ padding: '1.5rem', background: 'white' }}>
-              <h3 style={{ marginBottom: '0.5rem' }}>Head Coach</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Brazilian Jiu-Jitsu Expert with 15+ years experience</p>
+          {cards.map((card, idx) => (
+            <div key={idx} style={{
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+              border: `3px solid ${primaryColor}`,
+            }}>
+              <img 
+                src={card.image}
+                alt={card.title}
+                style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+              />
+              <div style={{ padding: '1.5rem', background: 'white' }}>
+                <h3 style={{ marginBottom: '0.5rem' }}>{card.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{card.description}</p>
+              </div>
             </div>
-          </div>
-          
-          <div style={{
-            borderRadius: '12px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-            border: '3px solid #FF9000',
-          }}>
-            <img 
-              src="/images/academy/coach-teaching.avif" 
-              alt="Teaching"
-              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-            />
-            <div style={{ padding: '1.5rem', background: 'white' }}>
-              <h3 style={{ marginBottom: '0.5rem' }}>Training</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Personalized instruction for all skill levels</p>
-            </div>
-          </div>
-          
-          <div style={{
-            borderRadius: '12px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-            border: '3px solid #FF9000',
-          }}>
-            <img 
-              src="/images/academy/student.avif" 
-              alt="Students"
-              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
-            />
-            <div style={{ padding: '1.5rem', background: 'white' }}>
-              <h3 style={{ marginBottom: '0.5rem' }}>Competition</h3>
-              <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Challenge yourself and compete in tournaments</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -111,7 +146,7 @@ export default function DashboardHome() {
               borderRadius: '12px',
               padding: '1.5rem',
               boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-              borderLeft: '4px solid var(--primary-color)',
+              borderLeft: `4px solid ${primaryColor}`,
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                 <div>
@@ -131,7 +166,7 @@ export default function DashboardHome() {
                   </p>
                 </div>
                 <button className="enroll-btn" style={{
-                  background: '#FF9000',
+                  background: primaryColor,
                   color: '#1a1a2e',
                   border: '2px solid #1a1a2e',
                   padding: '0.75rem 1.75rem',

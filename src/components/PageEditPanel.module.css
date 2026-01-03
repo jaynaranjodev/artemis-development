@@ -1,0 +1,78 @@
+.editPanel {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 144, 0, 0.3);
+}
+
+.mainBtn {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.mainBtn:hover {
+  background-color: var(--secondary-color);
+  transform: translateX(4px);
+}
+
+.toggle {
+  transition: transform 0.3s ease;
+  display: inline-block;
+  font-size: 0.7rem;
+}
+
+.toggle.expanded {
+  transform: rotate(180deg);
+}
+
+.subButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subBtn {
+  background-color: rgba(255, 144, 0, 0.2);
+  color: #1a1a2e;
+  border: 1px solid var(--primary-color);
+  padding: 0.65rem 1rem;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.subBtn:hover {
+  background-color: rgba(255, 144, 0, 0.35);
+  transform: translateX(4px);
+}
+
+.subBtn:active {
+  transform: translateX(2px);
+}

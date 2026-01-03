@@ -3,7 +3,7 @@
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border: 3px solid #000;
+  border: 3px solid var(--text-primary);
 }
 
 .calendarHeader {
@@ -39,7 +39,7 @@
 
 .filterSelect {
   padding: 0.5rem 1rem;
-  border: 2px solid #FF9000;
+  border: 2px solid var(--primary-color);
   border-radius: 4px;
   background: white;
   color: #1a1a2e;
@@ -49,12 +49,12 @@
 }
 
 .filterSelect:hover {
-  border-color: #E66F00;
+  border-color: var(--secondary-color);
   box-shadow: 0 2px 8px rgba(255, 144, 0, 0.2);
 }
 
 .calendarNavBtn {
-  background: #FF9000;
+  background: var(--primary-color);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -65,7 +65,7 @@
 }
 
 .calendarNavBtn:hover {
-  background: #E66F00;
+  background: var(--secondary-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 144, 0, 0.3);
 }
@@ -81,7 +81,7 @@
 .weekdayLabel {
   text-align: center;
   font-weight: 600;
-  color: #000;
+  color: var(--text-primary);
   padding: 0.5rem;
   font-size: 0.95rem;
 }
@@ -107,7 +107,7 @@
 }
 
 .calendarDay:hover {
-  border-color: #FF9000;
+  border-color: var(--primary-color);
   box-shadow: 0 2px 8px rgba(255, 144, 0, 0.2);
 }
 
@@ -129,13 +129,13 @@
 }
 
 .calendarDay.today {
-  border-color: #FF9000;
+  border-color: var(--primary-color);
   border-width: 3px;
   background: #FFE5CC;
 }
 
 .calendarDay:hover:not(.empty) {
-  border-color: #FF9000;
+  border-color: var(--primary-color);
   box-shadow: 0 4px 12px rgba(255, 144, 0, 0.2);
   transform: translateY(-2px);
 }
@@ -168,16 +168,16 @@
 }
 
 .dayClasses::-webkit-scrollbar-thumb {
-  background: #FF9000;
+  background: var(--primary-color);
   border-radius: 2px;
 }
 
 .dayClasses::-webkit-scrollbar-thumb:hover {
-  background: #E66F00;
+  background: var(--secondary-color);
 }
 
 .classBadge {
-  background: #FF9000;
+  background: var(--primary-color);
   color: #1a1a2e;
   padding: 2px 3px;
   border-radius: 1px;
@@ -210,6 +210,6 @@
 }
 
 .classBadge:hover {
-  background: #E66F00;
+  background: var(--secondary-color);
   transform: scale(1.05);
 }

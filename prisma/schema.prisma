@@ -19,6 +19,20 @@ model Academy {
   zipCode       String?
   primaryColor  String   @default("#FF9000")
   secondaryColor String  @default("#E66F00")
+  
+  // About/Team Section Cards
+  card1Title    String?  @default("Head Coach")
+  card1Description String? @default("Brazilian Jiu-Jitsu Expert with 15+ years experience")
+  card1Image   String?  @default("/images/academy/coach.avif")
+  
+  card2Title   String?  @default("Training")
+  card2Description String? @default("Personalized instruction for all skill levels")
+  card2Image   String?  @default("/images/academy/coach-teaching.avif")
+  
+  card3Title   String?  @default("Competition")
+  card3Description String? @default("Challenge yourself and compete in tournaments")
+  card3Image   String?  @default("/images/academy/student.avif")
+  
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

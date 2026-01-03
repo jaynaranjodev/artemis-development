@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { ModalProvider } from "@/context/ModalContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Artemis Development",
@@ -14,7 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <ThemeProvider>
+          <AuthProvider>
+            <ModalProvider>
+              {children}
+            </ModalProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
