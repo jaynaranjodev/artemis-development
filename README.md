@@ -1,36 +1,36 @@
-# 👋 Hi, I'm Jonathan Naranjo
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Software Developer & Web Solutions Specialist
+## Getting Started
 
-I'm a passionate software developer with a love for creating digital experiences that make a difference. Whether you need a simple blog site to share your story, a dynamic business website to grow your brand, or a fully-fledged web application to power your operations, I'm here to bring your vision to life.
+First, run the development server:
 
-### 🚀 What I Build
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- **Simple & Elegant Websites** - Clean, fast-loading sites that get your message across
-- **Business Websites** - Professional platforms that drive growth and engagement  
-- **E-commerce Solutions** - Secure, user-friendly online stores that convert visitors to customers
-- **Web Applications** - Custom software solutions tailored to your specific needs
-- **API Development** - Robust backend services and integrations
-- **Mobile-Responsive Design** - Beautiful experiences on every device
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### 💡 My Approach
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-I believe great software combines beautiful design with solid functionality. Every project starts with understanding your goals, your users, and your unique challenges. From there, I craft solutions using modern technologies and best practices to ensure your project not only looks amazing but performs flawlessly.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-### 🛠️ Technologies I Work With
+## Learn More
 
-- **Frontend:** React, Vue.js, HTML5, CSS3, JavaScript/TypeScript
-- **Backend:** C#, ASP.NET
-- **Databases:** SQL, Google Firestore, NoSQL
-- **Cloud & Deployment:** Azure, GCP, AWS, Github Actions
-- **Tools:** Git, VS Code, Visual Studios
+To learn more about Next.js, take a look at the following resources:
 
-### 🌟 Ready to Build Something Amazing?
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Every great project starts with a conversation. I'd love to hear about your ideas and discuss how we can turn them into reality.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-**[🌐 Visit My Website](https://jaynaranjodev.github.io/artemis-development)** to learn more about my services, view my portfolio, and get in touch.
+## Deploy on Vercel
 
----
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-*Let's create something extraordinary together!*
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

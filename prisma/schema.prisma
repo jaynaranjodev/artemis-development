@@ -1,0 +1,116 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Academy {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  email         String
+  phone         String?
+  address       String?
+  city          String?
+  state         String?
+  zipCode       String?
+  primaryColor  String   @default("#FF9000")
+  secondaryColor String  @default("#E66F00")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  users  User[]
+  classes Class[]
+  instructors Instructor[]
+  members Member[]
+  classEnrollments ClassEnrollment[]
+
+  @@index([slug])
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      String   @default("MEMBER")
+  academyId String
+  academy   Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  member Member?
+  instructor Instructor?
+
+  @@index([academyId])
+}
+
+model Member {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  beltLevel String?
+  academyId String
+  academy   Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enrollments ClassEnrollment[]
+
+  @@index([academyId])
+}
+
+model Instructor {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio       String?
+  academyId String
+  academy   Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  classes Class[]
+
+  @@index([academyId])
+}
+
+model Class {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  classType   String   @default("ADULT_BJJ")
+  dayOfWeek   Int
+  startTime   String
+  endTime     String
+  instructorId String
+  instructor  Instructor @relation(fields: [instructorId], references: [id], onDelete: Cascade)
+  academyId   String
+  academy     Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  enrollments ClassEnrollment[]
+
+  @@index([academyId])
+  @@index([instructorId])
+}
+
+model ClassEnrollment {
+  id        String   @id @default(cuid())
+  memberId  String
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  classId   String
+  class     Class    @relation(fields: [classId], references: [id], onDelete: Cascade)
+  academyId String
+  academy   Academy  @relation(fields: [academyId], references: [id], onDelete: Cascade)
+  status    String   @default("ACTIVE")
+  createdAt DateTime @default(now())
+
+  @@unique([memberId, classId])
+  @@index([academyId])
+}
